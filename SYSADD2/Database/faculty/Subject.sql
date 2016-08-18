@@ -1,32 +1,25 @@
--- phpMyAdmin SQL Dump
--- version 4.1.6
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Mar 18, 2016 at 03:39 PM
--- Server version: 5.1.73
--- PHP Version: 5.3.3
+/*
+Navicat MySQL Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+Source Server         : Dev Local FLAVIO DB
+Source Server Version : 50621
+Source Host           : localhost:3306
+Source Database       : AREG
 
+Target Server Type    : MYSQL
+Target Server Version : 50621
+File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+Date: 2016-08-18 14:39:52
+*/
 
---
--- Database: `AREG`
---
+SET FOREIGN_KEY_CHECKS=0;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Subject`
---
-
-CREATE TABLE IF NOT EXISTS `Subject` (
+-- ----------------------------
+-- Table structure for Subject
+-- ----------------------------
+DROP TABLE IF EXISTS `Subject`;
+CREATE TABLE `Subject` (
   `subject_id` int(5) NOT NULL AUTO_INCREMENT,
   `term_id` int(11) NOT NULL DEFAULT '1',
   `subject_code` varchar(10) NOT NULL DEFAULT '',
@@ -46,8 +39,4 @@ CREATE TABLE IF NOT EXISTS `Subject` (
   `category` tinyint(4) NOT NULL,
   `assess_note` varchar(255) NOT NULL,
   PRIMARY KEY (`subject_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Subject' AUTO_INCREMENT=1559 ;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+) ENGINE=MyISAM AUTO_INCREMENT=1566 DEFAULT CHARSET=latin1 COMMENT='Subject';

@@ -1,39 +1,28 @@
--- phpMyAdmin SQL Dump
--- version 4.1.6
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Mar 18, 2016 at 03:32 PM
--- Server version: 5.1.73
--- PHP Version: 5.3.3
+/*
+Navicat MySQL Data Transfer
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+Source Server         : Dev Local FLAVIO DB
+Source Server Version : 50621
+Source Host           : localhost:3306
+Source Database       : AHR
 
+Target Server Type    : MYSQL
+Target Server Version : 50621
+File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+Date: 2016-08-18 14:32:33
+*/
 
---
--- Database: `AHR`
---
+SET FOREIGN_KEY_CHECKS=0;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `FacultyLoad`
---
-
-CREATE TABLE IF NOT EXISTS `FacultyLoad` (
+-- ----------------------------
+-- Table structure for FacultyLoad
+-- ----------------------------
+DROP TABLE IF EXISTS `FacultyLoad`;
+CREATE TABLE `FacultyLoad` (
   `load_id` int(5) NOT NULL AUTO_INCREMENT,
   `emp_id` char(10) NOT NULL,
   `subject_offering_id` int(5) DEFAULT NULL,
   `date` int(11) DEFAULT NULL,
   PRIMARY KEY (`load_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COMMENT='Faculty Load Effectivity Date' AUTO_INCREMENT=18605 ;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+) ENGINE=MyISAM AUTO_INCREMENT=19162 DEFAULT CHARSET=latin1 COMMENT='Faculty Load Effectivity Date';
