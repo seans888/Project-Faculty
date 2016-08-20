@@ -4,6 +4,9 @@
 //Cobalt developed by JV Roig (jvroig@jvroig.com)
 //****************************************************************************************
 require 'path.php';
-init_cobalt('ALLOW_ALL');
+init_cobalt('View subject');
 
-redirect(INDEX_TARGET);
+require 'reporter_class.php';
+$reporter = cobalt_load_class('subject_rpt');
+require 'components/reporter_result_query_constructor.php';
+require 'components/reporter_result_body.php';
