@@ -33,6 +33,8 @@
 				<th>Subject Name</th>
 				<th>Subject Description</th>
 				<th>Unit</th>
+				<th>Day 1</th>
+				<th>Day 2</th>
 				<th>Start Time</th>
 				<th>End Time</th>
 			</tr>
@@ -59,18 +61,20 @@
 						(subjectid, subject_name, subject_desc, unit
 						,start_time, end_time)";
 						$result = mysqli_query($db,$sql) or die("Error: ".mysqli_error($db));
+					}
 
-						while ($subjectdata = mysqli_fetch_array($result,MYSQLI_ASSOC))
-						{
-							echo "<tr>";
-							echo "<td>".$subjectdata['subjectid']."</td>";
-							echo "<td>".$subjectdata['subject_name']."</td>";
-							echo "<td>".$subjectdata['subject_desc']."</td>";
-							echo "<td>".$subjectdata['unit']."</td>";
-							echo "<td>".$subjectdata['start_time']."</td>";
-							echo "<td>".$subjectdata['end_time']."</td>";
-							echo "</tr>";
-						}
+					while ($subjectdata = mysqli_fetch_array($result,MYSQLI_ASSOC))
+					{
+						echo "<tr>";
+						echo "<td>".$subjectdata['subjectid']."</td>";
+						echo "<td>".$subjectdata['subject_name']."</td>";
+						echo "<td>".$subjectdata['subject_desc']."</td>";
+						echo "<td>".$subjectdata['unit']."</td>";
+						echo "<td>".$subjectdata['day1']."</td>";
+						echo "<td>".$subjectdata['day2']."</td>";
+						echo "<td>".$subjectdata['start_time']."</td>";
+						echo "<td>".$subjectdata['end_time']."</td>";
+						echo "</tr>";
 					}
 				}
 			?>

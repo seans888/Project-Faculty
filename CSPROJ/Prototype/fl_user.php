@@ -1,3 +1,7 @@
+<?php
+	include('index.php');
+?>
+
 <html>
 <head>
 	<link href="css/index2.css" rel="stylesheet" type="text/css">

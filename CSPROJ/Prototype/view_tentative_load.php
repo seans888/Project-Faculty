@@ -1,4 +1,6 @@
-<html>
+<?php
+	include('index.php');
+?><html>
 <head>
 	<title>Tentative Load</title>
 	<link href="css/tables.css" rel="stylesheet" type="text/css">
@@ -21,7 +23,6 @@
 			</tr>
 
 			<?php
-				include('session.php');
 
 				$select = "SELECT * FROM `load` WHERE facultyID = '$empID'";
 				$result = mysqli_query($db, $select) or die("Error: ".mysqli_error($db));

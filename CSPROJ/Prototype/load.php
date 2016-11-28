@@ -1,4 +1,6 @@
-<html>
+<?php
+	include('index.php');
+?><html>
 <head>
 	<title>Load</title>
 	<link href="css/tables.css" rel="stylesheet" type="text/css">
@@ -6,9 +8,12 @@
 </head>
 
 <body>
+<h3>You are creating a load for term 2 in year <?php echo date('Y');?></h3>
 	<center>
 		<form action="" method="post">
-		<input type="submit" id="submitButton" name="submitMatch" value="Match!"></input>
+
+			<input type="submit" id="submitButton" name="submitMatch" value="Match!"></input>
+
 		</form>
 		<?php 
 
@@ -33,19 +38,20 @@
 				<th>Subject Name</th>
 				<th>Subject Description</th>
 				<th>Unit</th>
+				<th>Year</th>
+				<th>Term</th>
+				<th>M-TH</th>
+				<th>T-F</th>
 				<th>Start Time</th>
 				<th>End Time</th>
 			</tr>
 
 			<?php
 
-			include('db.php');
-
 			if($_SERVER["REQUEST_METHOD"] == "POST") 
 			{
 				if (isset($_POST['submitMatch']))
 				{
-
 					b:
 
 					$sql = "SELECT * FROM employee";
@@ -53,179 +59,204 @@
 
 					while ($faculty = mysqli_fetch_assoc($records1))
 					{
-
-						$sql = "SELECT * FROM subject";
+						$year = date('Y');
+						$sql = "SELECT * FROM subject WHERE year = '$year'";
 						$records2 = mysqli_query($db,$sql) or die("Error: ".mysqli_error($db));
 						
 						a:
 
 						while ($subject = mysqli_fetch_assoc($records2))
 						{
-							if ($subject['start_time'] == "07:30" && $subject['occupied'] == 'n' && $faculty['seven_thirty'] == 'n')
+							if ($faculty['tagged'] == 'checked')
 							{
-								if ($faculty['nine_thirty'] == 'y' && $faculty['eleven_thirty'] == 'y')
-									goto a;
-
-								else
+								if ($subject['start_time'] == "07:30" && $subject['occupied'] == 'n' && $faculty['seven_thirty'] == 'n')
 								{
-									echo "<tr>";
-									echo "<td>".$faculty['empid']."</td>";
-									echo "<td>".$faculty['emp_first_name']."</td>";
-									echo "<td>".$faculty['emp_middle_name']."</td>";
-									echo "<td>".$faculty['emp_last_name']."</td>";
-									echo "<td>".$faculty['emp_type']."</td>";
-									echo "<td>".$faculty['specialization']."</td>";
-									echo "<td>".$faculty['ote']."</td>";
-									echo "<td>".$subject['subjectid']."</td>";
-									echo "<td>".$subject['subject_name']."</td>";
-									echo "<td>".$subject['subject_desc']."</td>";
-									echo "<td>".$subject['unit']."</td>";
-									echo "<td>".$subject['start_time']."</td>";
-									echo "<td>".$subject['end_time']."</td>";
-									echo "</tr>";
+									if ($faculty['nine_thirty'] == 'y' && $faculty['eleven_thirty'] == 'y')
+										goto a;
 
-									$update = "UPDATE employee SET seven_thirty = 'y' where empid = ".$faculty['empid'];
-									mysqli_query($db,$update);
+									else
+									{
+										echo "<tr>";
+										echo "<td>".$faculty['empid']."</td>";
+										echo "<td>".$faculty['emp_first_name']."</td>";
+										echo "<td>".$faculty['emp_middle_name']."</td>";
+										echo "<td>".$faculty['emp_last_name']."</td>";
+										echo "<td>".$faculty['emp_type']."</td>";
+										echo "<td>".$faculty['specialization']."</td>";
+										echo "<td>".$faculty['ote']."</td>";
+										echo "<td>".$subject['subjectid']."</td>";
+										echo "<td>".$subject['subject_name']."</td>";
+										echo "<td>".$subject['subject_desc']."</td>";
+										echo "<td>".$subject['unit']."</td>";
+										echo "<td>".$subject['year']."</td>";
+										echo "<td>".$subject['term']."</td>";
+										echo "<td>".$subject['MTH']."</td>";
+										echo "<td>".$subject['TF']."</td>";
+										echo "<td>".$subject['start_time']."</td>";
+										echo "<td>".$subject['end_time']."</td>";
+										echo "</tr>";
 
-									$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
-									mysqli_query($db,$update);
+										$update = "UPDATE employee SET seven_thirty = 'y' where empid = ".$faculty['empid'];
+										mysqli_query($db,$update);
 
-									goto b;
+										$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
+										mysqli_query($db,$update);
+
+										goto b;
+									}
 								}
-							}
 
-							else if ($subject['start_time'] == "09:30" && $subject['occupied'] == 'n' && $faculty['nine_thirty'] == 'n')
-							{
-								if (($faculty['seven_thirty'] == 'y' && $faculty['eleven_thirty'] == 'y') ||
-									($faculty['eleven_thirty'] == 'y' && $faculty['one_thirty'] == 'y'))
-									goto a;
-
-								else
+								else if ($subject['start_time'] == "09:30" && $subject['occupied'] == 'n' && $faculty['nine_thirty'] == 'n')
 								{
-									echo "<tr>";
-									echo "<td>".$faculty['empid']."</td>";
-									echo "<td>".$faculty['emp_first_name']."</td>";
-									echo "<td>".$faculty['emp_middle_name']."</td>";
-									echo "<td>".$faculty['emp_last_name']."</td>";
-									echo "<td>".$faculty['emp_type']."</td>";
-									echo "<td>".$faculty['specialization']."</td>";
-									echo "<td>".$faculty['ote']."</td>";
-									echo "<td>".$subject['subjectid']."</td>";
-									echo "<td>".$subject['subject_name']."</td>";
-									echo "<td>".$subject['subject_desc']."</td>";
-									echo "<td>".$subject['unit']."</td>";
-									echo "<td>".$subject['start_time']."</td>";
-									echo "<td>".$subject['end_time']."</td>";
-									echo "</tr>";
+									if (($faculty['seven_thirty'] == 'y' && $faculty['eleven_thirty'] == 'y') ||
+										($faculty['eleven_thirty'] == 'y' && $faculty['one_thirty'] == 'y'))
+										goto a;
 
-									$update = "UPDATE employee SET nine_thirty = 'y' where empid = ".$faculty['empid'];
-									mysqli_query($db,$update);
+									else
+									{
+										echo "<tr>";
+										echo "<td>".$faculty['empid']."</td>";
+										echo "<td>".$faculty['emp_first_name']."</td>";
+										echo "<td>".$faculty['emp_middle_name']."</td>";
+										echo "<td>".$faculty['emp_last_name']."</td>";
+										echo "<td>".$faculty['emp_type']."</td>";
+										echo "<td>".$faculty['specialization']."</td>";
+										echo "<td>".$faculty['ote']."</td>";
+										echo "<td>".$subject['subjectid']."</td>";
+										echo "<td>".$subject['subject_name']."</td>";
+										echo "<td>".$subject['subject_desc']."</td>";
+										echo "<td>".$subject['unit']."</td>";
+										echo "<td>".$subject['year']."</td>";
+										echo "<td>".$subject['term']."</td>";
+										echo "<td>".$subject['MTH']."</td>";
+										echo "<td>".$subject['TF']."</td>";
+										echo "<td>".$subject['start_time']."</td>";
+										echo "<td>".$subject['end_time']."</td>";
+										echo "</tr>";
 
-									$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
-									mysqli_query($db,$update);
+										$update = "UPDATE employee SET nine_thirty = 'y' where empid = ".$faculty['empid'];
+										mysqli_query($db,$update);
 
-									goto b;
+										$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
+										mysqli_query($db,$update);
+
+										goto b;
+									}
 								}
-							}
 
-							else if ($subject['start_time'] == "11:30" && $subject['occupied'] == 'n' && $faculty['eleven_thirty'] == 'n')
-							{
-								if (($faculty['seven_thirty'] == 'y' && $faculty['nine_thirty'] == 'y') ||
-									($faculty['nine_thirty'] == 'y' && $faculty['one_thirty'] == 'y'))
-									goto a;
-
-								else
+								else if ($subject['start_time'] == "11:30" && $subject['occupied'] == 'n' && $faculty['eleven_thirty'] == 'n')
 								{
-									echo "<tr>";
-									echo "<td>".$faculty['empid']."</td>";
-									echo "<td>".$faculty['emp_first_name']."</td>";
-									echo "<td>".$faculty['emp_middle_name']."</td>";
-									echo "<td>".$faculty['emp_last_name']."</td>";
-									echo "<td>".$faculty['emp_type']."</td>";
-									echo "<td>".$faculty['specialization']."</td>";
-									echo "<td>".$faculty['ote']."</td>";
-									echo "<td>".$subject['subjectid']."</td>";
-									echo "<td>".$subject['subject_name']."</td>";
-									echo "<td>".$subject['subject_desc']."</td>";
-									echo "<td>".$subject['unit']."</td>";
-									echo "<td>".$subject['start_time']."</td>";
-									echo "<td>".$subject['end_time']."</td>";
-									echo "</tr>";
+									if (($faculty['seven_thirty'] == 'y' && $faculty['nine_thirty'] == 'y') ||
+										($faculty['nine_thirty'] == 'y' && $faculty['one_thirty'] == 'y') 
+										||
+										($faculty['one_thirty'] == 'y' & $faculty['three_thirty'] == 'y'))
+										goto a;
 
-									$update = "UPDATE employee SET eleven_thirty = 'y' where empid = ".$faculty['empid'];
-									mysqli_query($db,$update);
+									else
+									{
+										echo "<tr>";
+										echo "<td>".$faculty['empid']."</td>";
+										echo "<td>".$faculty['emp_first_name']."</td>";
+										echo "<td>".$faculty['emp_middle_name']."</td>";
+										echo "<td>".$faculty['emp_last_name']."</td>";
+										echo "<td>".$faculty['emp_type']."</td>";
+										echo "<td>".$faculty['specialization']."</td>";
+										echo "<td>".$faculty['ote']."</td>";
+										echo "<td>".$subject['subjectid']."</td>";
+										echo "<td>".$subject['subject_name']."</td>";
+										echo "<td>".$subject['subject_desc']."</td>";
+										echo "<td>".$subject['unit']."</td>";
+										echo "<td>".$subject['year']."</td>";
+										echo "<td>".$subject['term']."</td>";
+										echo "<td>".$subject['MTH']."</td>";
+										echo "<td>".$subject['TF']."</td>";
+										echo "<td>".$subject['start_time']."</td>";
+										echo "<td>".$subject['end_time']."</td>";
+										echo "</tr>";
 
-									$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
-									mysqli_query($db,$update);
+										$update = "UPDATE employee SET eleven_thirty = 'y' where empid = ".$faculty['empid'];
+										mysqli_query($db,$update);
 
-									goto b;
+										$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
+										mysqli_query($db,$update);
+
+										goto b;
+									}
 								}
-							}
 
-							else if ($subject['start_time'] == "01:30" && $subject['occupied'] == 'n' && $faculty['one_thirty'] == 'n')
-							{
-								if (($faculty['nine_thirty'] == 'y' && $faculty['eleven_thirty'] == 'y') ||
-									($faculty['eleven_thirty'] == 'y' && $faculty['three_thirty'] == 'y'))
-									goto a;
-
-								else
+								else if ($subject['start_time'] == "01:30" && $subject['occupied'] == 'n' && $faculty['one_thirty'] == 'n')
 								{
-									echo "<tr>";
-									echo "<td>".$faculty['empid']."</td>";
-									echo "<td>".$faculty['emp_first_name']."</td>";
-									echo "<td>".$faculty['emp_middle_name']."</td>";
-									echo "<td>".$faculty['emp_last_name']."</td>";
-									echo "<td>".$faculty['emp_type']."</td>";
-									echo "<td>".$faculty['specialization']."</td>";
-									echo "<td>".$faculty['ote']."</td>";
-									echo "<td>".$subject['subjectid']."</td>";
-									echo "<td>".$subject['subject_name']."</td>";
-									echo "<td>".$subject['subject_desc']."</td>";
-									echo "<td>".$subject['unit']."</td>";
-									echo "<td>".$subject['start_time']."</td>";
-									echo "<td>".$subject['end_time']."</td>";
-									echo "</tr>";
+									if (($faculty['nine_thirty'] == 'y' && $faculty['eleven_thirty'] == 'y') ||
+										($faculty['eleven_thirty'] == 'y' && $faculty['three_thirty'] == 'y'))
+										goto a;
 
-									$update = "UPDATE employee SET one_thirty = 'y' where empid = ".$faculty['empid'];
-									mysqli_query($db,$update);
+									else
+									{
+										echo "<tr>";
+										echo "<td>".$faculty['empid']."</td>";
+										echo "<td>".$faculty['emp_first_name']."</td>";
+										echo "<td>".$faculty['emp_middle_name']."</td>";
+										echo "<td>".$faculty['emp_last_name']."</td>";
+										echo "<td>".$faculty['emp_type']."</td>";
+										echo "<td>".$faculty['specialization']."</td>";
+										echo "<td>".$faculty['ote']."</td>";
+										echo "<td>".$subject['subjectid']."</td>";
+										echo "<td>".$subject['subject_name']."</td>";
+										echo "<td>".$subject['subject_desc']."</td>";
+										echo "<td>".$subject['unit']."</td>";
+										echo "<td>".$subject['year']."</td>";
+										echo "<td>".$subject['term']."</td>";
+										echo "<td>".$subject['MTH']."</td>";
+										echo "<td>".$subject['TF']."</td>";
+										echo "<td>".$subject['start_time']."</td>";
+										echo "<td>".$subject['end_time']."</td>";
+										echo "</tr>";
 
-									$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
-									mysqli_query($db,$update);
+										$update = "UPDATE employee SET one_thirty = 'y' where empid = ".$faculty['empid'];
+										mysqli_query($db,$update);
 
-									goto b;
+										$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
+										mysqli_query($db,$update);
+
+										goto b;
+									}
 								}
-							}
 
-							else if ($subject['start_time'] == "03:30" && $subject['occupied'] == 'n' && $faculty['three_thirty'] == 'n')
-							{
-								if ($faculty['eleven_thirty'] == 'y' && $faculty['one_thirty'] == 'y')
-									goto a;
-								
-								else
+								else if ($subject['start_time'] == "03:30" && $subject['occupied'] == 'n' && $faculty['three_thirty'] == 'n')
 								{
-									echo "<tr>";
-									echo "<td>".$faculty['empid']."</td>";
-									echo "<td>".$faculty['emp_first_name']."</td>";
-									echo "<td>".$faculty['emp_middle_name']."</td>";
-									echo "<td>".$faculty['emp_last_name']."</td>";
-									echo "<td>".$faculty['emp_type']."</td>";
-									echo "<td>".$faculty['specialization']."</td>";
-									echo "<td>".$faculty['ote']."</td>";
-									echo "<td>".$subject['subjectid']."</td>";
-									echo "<td>".$subject['subject_name']."</td>";
-									echo "<td>".$subject['subject_desc']."</td>";
-									echo "<td>".$subject['unit']."</td>";
-									echo "<td>".$subject['start_time']."</td>";
-									echo "<td>".$subject['end_time']."</td>";
-									echo "</tr>";
+									if ($faculty['eleven_thirty'] == 'y' && $faculty['one_thirty'] == 'y')
+										goto a;
+									
+									else
+									{
+										echo "<tr>";
+										echo "<td>".$faculty['empid']."</td>";
+										echo "<td>".$faculty['emp_first_name']."</td>";
+										echo "<td>".$faculty['emp_middle_name']."</td>";
+										echo "<td>".$faculty['emp_last_name']."</td>";
+										echo "<td>".$faculty['emp_type']."</td>";
+										echo "<td>".$faculty['specialization']."</td>";
+										echo "<td>".$faculty['ote']."</td>";
+										echo "<td>".$subject['subjectid']."</td>";
+										echo "<td>".$subject['subject_name']."</td>";
+										echo "<td>".$subject['subject_desc']."</td>";
+										echo "<td>".$subject['unit']."</td>";
+										echo "<td>".$subject['year']."</td>";
+										echo "<td>".$subject['term']."</td>";
+										echo "<td>".$subject['MTH']."</td>";
+										echo "<td>".$subject['TF']."</td>";
+										echo "<td>".$subject['start_time']."</td>";
+										echo "<td>".$subject['end_time']."</td>";
+										echo "</tr>";
 
-									$update = "UPDATE employee SET three_thirty = 'y' where empid = ".$faculty['empid'];
-									mysqli_query($db,$update);
+										$update = "UPDATE employee SET three_thirty = 'y' where empid = ".$faculty['empid'];
+										mysqli_query($db,$update);
 
-									$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
-									mysqli_query($db,$update);
+										$update = "UPDATE subject SET occupied = 'y' where subjectid = ".$subject['subjectid'];
+										mysqli_query($db,$update);
 
-									goto b;
+										goto b;
+									}
 								}
 							}
 						}

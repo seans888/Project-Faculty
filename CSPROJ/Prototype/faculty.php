@@ -1,78 +1,61 @@
+<?php
+	include('index.php');
+?>
+
 <html>
 <head>
-	<title>Subject Offerings</title>
-	<link href="css/tables.css" rel="stylesheet" type="text/css">
+	<title>Faculty Loading Reports</title>
+	<link href="css/fieldset.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<h3 style="color:blue">Faculty Loading Reports</h3>
 <center>
-	<form action="" method="post">
-		<select id="sort" name="sort">
-			<option value="empid">Employee ID</option>
-			<option value="emp_first_name">Employee First Name</option>
-			<option value="emp_middle_name">Employee Middle Name</option>
-			<option value="emp_last_name">Employee Last Name</option>
-			<option value="emp_type">Employee Type</option>
-			<option value="specialization">Specialization</option>
-		</select>
+	<form action="faculty_load.php" method="post">
+		<fieldset>
+		<table width="100%">
+		<tr>
+			<td>Employee: </td>
+			<td width="80%"><select id="faculty" name="faculty">
+					<?php
+						include('db.php');
+						$sql = "SELECT * from employee";
+						$result = mysqli_query($db,$sql) or die("Error: " . mysqli_error($db));
 
-		<select id="ascdesc" name="ascdesc">
-			<option value="ASC">Ascending</option>
-			<option value="DESC">Descending</option>
-		</select>
-		<input type="submit" id="submitButton" name="submitSort" value="Sort!" /><br />
-		<input type="text" id="textField" name="textField" placeholder="Enter value here">
-		<input type="submit" id="submitButton" name="submitValue" value="Find!" />
-	</form>
-			
-		<h1>Faculty</h1>
-
-		<table id="faculty" class="container" width="600" border="1" cellpadding="15" cellspacing="1" >
+						while ($faculty = mysqli_fetch_assoc($result))
+						{
+					?>
+						<option value="<?php echo $faculty['empid']?>">
+							<?php
+								echo strtoupper($faculty['emp_last_name']) . ", ";
+								echo strtoupper($faculty['emp_first_name']). " ";
+								echo strtoupper($faculty['emp_middle_name']);
+							?>
+						</option>
+					<?php
+						}
+					?>
+				</td>
+				</select>
 			<tr>
-				<th>Employee ID</th>
-				<th>Employee First Name</th>
-				<th>Employee Middle Name</th>
-				<th>Employee Last Name</th>
-				<th>Employee Type</th>
-				<th>Specialization</th>
+			<td>Year:</td>
+			<td><select id="year" name="year">
+				<option value="2015">2015</option>
+				<option value="2016">2016</option>
+			</select>
+			</td>
 			</tr>
-			
-			<?php
-				include('db.php');
-
-				if ($_SERVER["REQUEST_METHOD"] == "POST")
-				{
-					if (isset($_POST['submitSort'])) 
-					{
-						$sort = $_POST['sort'];
-						$ascdesc = $_POST['ascdesc'];
-						$sql = "SELECT * FROM employee ORDER BY $sort $ascdesc";
-						$result = mysqli_query($db,$sql) or die("Error: ".mysqli_error($db));
-					}
-
-					if (isset($_POST['submitValue']))
-					{	
-						$value = $_POST['textField'];
-
-						$sql = "SELECT * FROM employee where '$value' IN 
-						(empid, emp_first_name, emp_middle_name, emp_last_name
-						,emp_type, specialization)";
-						$result = mysqli_query($db,$sql) or die("Error: ".mysqli_error($db));
-					}
-						
-					while ($facultydata = mysqli_fetch_array($result,MYSQLI_ASSOC))
-					{
-						echo "<tr>";
-						echo "<td>".$facultydata['empid']."</td>";
-						echo "<td>".$facultydata['emp_first_name']."</td>";
-						echo "<td>".$facultydata['emp_middle_name']."</td>";
-						echo "<td>".$facultydata['emp_last_name']."</td>";
-						echo "<td>".$facultydata['emp_type']."</td>";
-						echo "<td>".$facultydata['specialization']."</td>";
-						echo "</tr>";
-					}
-				}
-			?>
-		</table>
-	</center>
+			<tr>
+			<td>Term:</td>
+			<td><select id="term" name="term">
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+			</td>
+			</tr>
+			</table>
+		<input type="submit" id="submit" name="submit" value="Submit" />
+		</fieldset>
+	</form>
+</center>
 </body>
 </html>
