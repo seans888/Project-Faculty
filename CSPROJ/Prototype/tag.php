@@ -15,12 +15,13 @@ $result = mysqli_query($db,$sql) or die ("Error: ".mysqli_error($db));
 	<?php
 		while($faculty = mysqli_fetch_array($result,MYSQLI_ASSOC))
 		{
-			echo "<input type='checkbox' name='tagged[]' value=" 
-			. $faculty['username'] . " " 
-			. $faculty['tagged'] . ">" 
+			echo "<input type='checkbox' name='tagged[]' value="
+			. $faculty['username'] . " "
+			. $faculty['tagged'] . ">"
 			. $faculty['emp_last_name'] . ", "
 			. $faculty['emp_first_name'] . " "
-			. $faculty['emp_middle_name'] . "<br>";
+			. $faculty['emp_middle_name'] . ", "
+			. $faculty['emp_type'] . "<br>";
 		}
 	?>
 		<input type="submit" value="Submit">
