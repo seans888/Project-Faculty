@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<h3>You are creating a load for term 2 in year <?php echo date('Y');?></h3>
+<h3>Tentative Load for Term 2 in year <?php echo date('Y');?></h3>
 	<center>
 		<form action="" method="post">
 
