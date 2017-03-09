@@ -1,0 +1,32 @@
+table {
+  text-align: left;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+#fl {
+  width: 50%;
+}
+
+#subject, #faculty, #load {
+  width: 100%;
+}
+
+th {
+  color: white;
+  background: linear-gradient(to bottom,  #0000ff 0%, #0000ff 50%, #1634a0 50%, #1634a0 100%);
+}
+
+th, td {
+  border: 1px solid #111111;
+  padding: 5px;
+}
+
+td {
+  padding: 5px;
+  text-indent: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
