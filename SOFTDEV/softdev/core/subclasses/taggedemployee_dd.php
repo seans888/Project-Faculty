@@ -114,9 +114,9 @@ class taggedemployee_dd
                                           'date_elements'=>array('','',''),
                                           'date_default'=>'',
                                           'list_type'=>'sql generated',
-                                          'list_settings'=>array('query' => "SELECT employee.emp_id AS `Queried_emp_id`, employee.emp_first_name, employee.emp_last_name, employee.emp_middle_name FROM employee ORDER BY `emp_first_name`, `emp_last_name`, `emp_middle_name`",
+                                          'list_settings'=>array('query' => "SELECT employee.emp_id AS `Queried_emp_id`, employee.emp_first_name, employee.emp_middle_name, employee.emp_last_name FROM employee ORDER BY `emp_first_name`, `emp_middle_name`, `emp_last_name`",
                                                                      'list_value' => 'Queried_emp_id',
-                                                                     'list_items' => array('emp_first_name', 'emp_last_name', 'emp_middle_name'),
+                                                                     'list_items' => array('emp_first_name', 'emp_middle_name', 'emp_last_name'),
                                                                      'list_separators' => array()),
                                           'rpt_in_report'=>TRUE,
                                           'rpt_column_format'=>'normal',
@@ -133,7 +133,7 @@ class taggedemployee_dd
                                  'alias'=>'',
                                  'link_parent'=>'emp_id',
                                  'link_child'=>'emp_id',
-                                 'link_subtext'=>array('emp_first_name','emp_last_name','emp_middle_name'),
+                                 'link_subtext'=>array('emp_first_name','emp_middle_name','emp_last_name'),
                                  'where_clause'=>''));
 
         return $relations;

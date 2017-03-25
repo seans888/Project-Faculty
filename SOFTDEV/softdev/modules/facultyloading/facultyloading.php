@@ -33,7 +33,7 @@ if($_POST['btn_submit'])
 	{
 		$arr_result[] = $row;
 	} 
-
+ 	
 	for ($i = 0; $i < count($arr_result); ++$i)
 	{
 		extract($arr_result[$i]);
@@ -45,10 +45,10 @@ if($_POST['btn_submit'])
 			$emp_result[] = $row;
 		} 
 
-		for($i = 0; $i < count($emp_result); ++$i)
+		for($j = 0; $j < count($emp_result); ++$j)
 		{
-			extract($emp_result[$i]);
-			$subject = $sub->execute_query("SELECT * FROM `subject` WHERE specialization_id = $specialization_id")->result;
+			extract($emp_result[$j]);
+			$subject = $sub->execute_query("SELECT * FROM `subject` WHERE specialization_id = $specialization_id AND occupied = 'n'")->result;
 
 			$sub_result = array();
 			while($row = $subject->fetch_assoc())
@@ -56,9 +56,9 @@ if($_POST['btn_submit'])
 				$sub_result[] = $row;
 			}
 
-			for ($i = 0; $i < count($sub_result); ++$i)
+			for ($k = 0; $k < count($sub_result); ++$k)
 			{
-				extract($sub_result[$i]);
+				extract($sub_result[$k]);
 				echo '<tr>';
 				echo '<th>'.$emp_id.'</th>';
 				echo '<th>'.$emp_first_name.'</th>';
